@@ -9,9 +9,17 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.portdombo</groupId>
-    <artifactId>application</artifactId>
+    <artifactId>usecase</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>application</name>
     <description>application</description>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.portdombo</groupId>
+            <artifactId>domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
