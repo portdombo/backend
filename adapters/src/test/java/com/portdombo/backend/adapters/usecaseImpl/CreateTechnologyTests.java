@@ -1,6 +1,7 @@
 package com.portdombo.backend.adapters.usecaseImpl;
 
 import com.portdombo.backend.adapters.gateway.ICreateTechnologyGateway;
+import com.portdombo.backend.adapters.mocks.TechnologyFactory;
 import com.portdombo.backend.adapters.usesaceImpl.CreateTechnology;
 import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.domain.exceptions.ConflictException;
@@ -33,19 +34,9 @@ public class CreateTechnologyTests {
     @Test
     @DisplayName("Should throw ConflictException if technology already exists")
     void shouldThrowConflictExceptionIfTechnologyAlreadyExists() {
-        Technology technology = Technology
-                .builder()
-                .code(1L)
-                .name("Name")
-                .description("Description")
-                .image("Image")
-                .highlighted(false)
-                .highlighted(true)
-                .build();
-
+        Technology technology = TechnologyFactory.createTechnologyFactory();
         when(existsTechnologyByName.existsByName(technology.getName())).thenReturn(true);
         Throwable exception = catchThrowable(() -> createTechnology.create(technology));
-
         assertThat(exception).isInstanceOf(ConflictException.class);
         assertThat(exception.getMessage()).isEqualTo("Technology already exists");
         verify(existsTechnologyByName, times(1)).existsByName(technology.getName());
@@ -54,18 +45,8 @@ public class CreateTechnologyTests {
     @Test
     @DisplayName("Should save technology with new generated code if does not exist")
     void shouldSaveTechnologyWithNewGeneratedCodeIfDoesNotExist() {
-        Technology technology = Technology
-                .builder()
-                .code(1L)
-                .name("Name")
-                .description("Description")
-                .image("Image")
-                .highlighted(false)
-                .highlighted(true)
-                .build();
-
+        Technology technology = TechnologyFactory.createTechnologyFactory();
         when(existsTechnologyByName.existsByName(technology.getName())).thenReturn(false);
-
         createTechnology.create(technology);
         verify(existsTechnologyByName, times(1)).existsByName(technology.getName());
     }
