@@ -4,9 +4,8 @@ import com.portdombo.backend.adapters.gateway.ICreateTechnologyGateway;
 import com.portdombo.backend.adapters.usesaceImpl.CreateTechnology;
 import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.domain.exceptions.ConflictException;
-import com.portdombo.backend.usecase.technology.ICreateTechnology;
+import com.portdombo.backend.usecase.technology.IExistsTechnologyByCode;
 import com.portdombo.backend.usecase.technology.IExistsTechnologyByName;
-import com.portdombo.backend.usecase.utils.IGenerateRandomCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,15 +19,15 @@ import static org.mockito.Mockito.*;
 public class CreateTechnologyTests {
     private CreateTechnology createTechnology;
     private IExistsTechnologyByName existsTechnologyByName;
-    private IGenerateRandomCode generateRandomCode ;
+    private IExistsTechnologyByCode existsTechnologyByCode;
     private ICreateTechnologyGateway createTechnologyGateway;
 
     @BeforeEach
     void setUp() {
         existsTechnologyByName = Mockito.mock(IExistsTechnologyByName.class);
-        generateRandomCode = Mockito.mock(IGenerateRandomCode.class);
         createTechnologyGateway = Mockito.mock(ICreateTechnologyGateway.class);
-        createTechnology = new CreateTechnology(existsTechnologyByName,generateRandomCode,createTechnologyGateway);
+        existsTechnologyByCode = Mockito.mock(IExistsTechnologyByCode.class);
+        createTechnology = new CreateTechnology(existsTechnologyByName, createTechnologyGateway);
     }
 
     @Test
@@ -66,10 +65,8 @@ public class CreateTechnologyTests {
                 .build();
 
         when(existsTechnologyByName.existsByName(technology.getName())).thenReturn(false);
-        when(generateRandomCode.generate()).thenReturn(1L);
 
         createTechnology.create(technology);
         verify(existsTechnologyByName, times(1)).existsByName(technology.getName());
-        verify(generateRandomCode, times(1)).generate();
     }
 }
