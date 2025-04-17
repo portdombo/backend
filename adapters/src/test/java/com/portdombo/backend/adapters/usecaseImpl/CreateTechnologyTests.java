@@ -1,9 +1,12 @@
 package com.portdombo.backend.adapters.usecaseImpl;
 
+import com.portdombo.backend.adapters.gateway.ICreateTechnologyGateway;
 import com.portdombo.backend.adapters.usesaceImpl.CreateTechnology;
 import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.domain.exceptions.ConflictException;
+import com.portdombo.backend.usecase.technology.ICreateTechnology;
 import com.portdombo.backend.usecase.technology.IExistsTechnologyByName;
+import com.portdombo.backend.usecase.utils.IGenerateRandomCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,11 +20,15 @@ import static org.mockito.Mockito.*;
 public class CreateTechnologyTests {
     private CreateTechnology createTechnology;
     private IExistsTechnologyByName existsTechnologyByName;
+    private IGenerateRandomCode generateRandomCode ;
+    private ICreateTechnologyGateway createTechnologyGateway;
 
     @BeforeEach
     void setUp() {
         existsTechnologyByName = Mockito.mock(IExistsTechnologyByName.class);
-        createTechnology = new CreateTechnology(existsTechnologyByName);
+        generateRandomCode = Mockito.mock(IGenerateRandomCode.class);
+        createTechnologyGateway = Mockito.mock(ICreateTechnologyGateway.class);
+        createTechnology = new CreateTechnology(existsTechnologyByName,generateRandomCode,createTechnologyGateway);
     }
 
     @Test
@@ -43,5 +50,26 @@ public class CreateTechnologyTests {
         assertThat(exception).isInstanceOf(ConflictException.class);
         assertThat(exception.getMessage()).isEqualTo("Technology already exists");
         verify(existsTechnologyByName, times(1)).existsByName(technology.getName());
+    }
+
+    @Test
+    @DisplayName("Should save technology with new generated code if does not exist")
+    void shouldSaveTechnologyWithNewGeneratedCodeIfDoesNotExist() {
+        Technology technology = Technology
+                .builder()
+                .code(1L)
+                .name("Name")
+                .description("Description")
+                .image("Image")
+                .highlighted(false)
+                .highlighted(true)
+                .build();
+
+        when(existsTechnologyByName.existsByName(technology.getName())).thenReturn(false);
+        when(generateRandomCode.generate()).thenReturn(1L);
+
+        createTechnology.create(technology);
+        verify(existsTechnologyByName, times(1)).existsByName(technology.getName());
+        verify(generateRandomCode, times(1)).generate();
     }
 }
