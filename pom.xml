@@ -45,8 +45,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <finalName>portdombo-api</finalName>
-    </build>
 </project>
