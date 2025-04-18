@@ -6,14 +6,24 @@ import com.portdombo.backend.infrastructure.persistence.entity.TechnologyEntity;
 
 import java.util.UUID;
 
-public class TechnologyFactory {
+public class TechnologyMocksFactory {
     public static CreateTechnologyRequest createTechnologyRequestFactory() {
         return CreateTechnologyRequest
                 .builder()
                 .name("Name")
                 .description("Description")
-                .imageURL("Image")
+                .image("Image")
                 .highlighted(false)
+                .build();
+    }
+
+    public static TechnologyEntity toTechnologyEntityFactory(CreateTechnologyRequest request) {
+        return TechnologyEntity
+                .builder()
+                .name(request.getName())
+                .description(request.getDescription())
+                .image(request.getImage())
+                .highlighted(request.isHighlighted())
                 .build();
     }
 

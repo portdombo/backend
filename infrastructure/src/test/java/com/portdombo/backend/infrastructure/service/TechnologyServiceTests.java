@@ -1,7 +1,7 @@
 package com.portdombo.backend.infrastructure.service;
 
 import com.portdombo.backend.domain.entity.Technology;
-import com.portdombo.backend.infrastructure.mocks.TechnologyFactory;
+import com.portdombo.backend.infrastructure.mocks.TechnologyMocksFactory;
 import com.portdombo.backend.infrastructure.persistence.entity.TechnologyEntity;
 import com.portdombo.backend.infrastructure.persistence.repository.TechnologyRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,9 +34,9 @@ public class TechnologyServiceTests {
     @Test
     @DisplayName("Should create technology")
     void shouldCreateTechnology() {
-        Technology technology = TechnologyFactory.technologyFactory();
-        TechnologyEntity entity = TechnologyFactory.toTechnologyEntityFactory(technology);
-        TechnologyEntity savedEntity = TechnologyFactory.toSaveTechnologyEntityFactory(entity);
+        Technology technology = TechnologyMocksFactory.technologyFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(technology);
+        TechnologyEntity savedEntity = TechnologyMocksFactory.toSaveTechnologyEntityFactory(entity);
         when(mapper.map(technology, TechnologyEntity.class)).thenReturn(entity);
         when(repository.save(entity)).thenReturn(savedEntity);
         technologyService.create(technology);
