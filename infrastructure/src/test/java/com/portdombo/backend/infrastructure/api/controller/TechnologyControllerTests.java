@@ -6,10 +6,7 @@ import com.portdombo.backend.infrastructure.persistence.repository.TechnologyRep
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.flywaydb.core.Flyway;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -78,5 +75,23 @@ public class TechnologyControllerTests {
                 .then()
                 .statusCode(400)
                 .body("data", equalTo("Name is required!"));
+    }
+
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = {"", "   "})
+    @DisplayName("Should return 400 if description is null or empty")
+    void shouldReturn400IfDescriptionIsNull(String description) {
+        CreateTechnologyRequest request = TechnologyFactory.createTechnologyRequestFactory();
+        request.setDescription(description);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post(BASE_URL + "technologies")
+                .then()
+                .statusCode(400)
+                .body("data", equalTo("Description is required!"));
     }
 }
