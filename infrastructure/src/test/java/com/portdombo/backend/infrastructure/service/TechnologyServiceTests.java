@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
 
@@ -40,5 +41,15 @@ public class TechnologyServiceTests {
         when(repository.save(entity)).thenReturn(savedEntity);
         technologyService.create(technology);
         verify(repository, times(1)).save(entity);
+    }
+
+    @Test
+    @DisplayName("Should return false if technology name does not exist")
+    void shouldReturnFalseIfTechnologyNameDoesNotExist() {
+        String name = "Name";
+        when(repository.existsByName(name)).thenReturn(false);
+        boolean result = technologyService.existsByName(name);
+        verify(repository, times(1)).existsByName(name);
+        assertThat(result).isFalse();
     }
 }
