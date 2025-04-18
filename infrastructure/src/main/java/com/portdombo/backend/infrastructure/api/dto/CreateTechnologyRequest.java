@@ -15,6 +15,9 @@ public class CreateTechnologyRequest {
     @NotNull(message = "Name is required!")
     @NotBlank(message = "Name is required!")
     private String name;
+
+    @NotNull(message = "Description is required!")
+    @NotBlank(message = "Description is required!")
     private String description;
     private String image;
     private boolean highlighted;
