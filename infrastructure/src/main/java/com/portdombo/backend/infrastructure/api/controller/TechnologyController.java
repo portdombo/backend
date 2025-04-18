@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("v1/technologies")
+@RequestMapping("/api/v1/technologies")
 @Tag(name = "Technology", description = "Technology")
 public class TechnologyController {
     private final ICreateTechnology createTechnology;
@@ -33,7 +34,7 @@ public class TechnologyController {
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
             @ApiResponse(responseCode = "500", description = "INTERNAL_SERVER_ERROR")
     })
-    public ResponseEntity<Response> create(@RequestBody CreateTechnologyRequest request) {
+    public ResponseEntity<Response> create(@Valid @RequestBody CreateTechnologyRequest request) {
         Technology technology = mapper.map(request, Technology.class);
         createTechnology.create(technology);
         Response response = Response.builder().statusCode(HttpStatus.CREATED.value()).data("CREATED").build();
