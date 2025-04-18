@@ -128,4 +128,17 @@ public class TechnologyControllerTests {
                 .statusCode(409)
                 .body("data", equalTo("Technology already exists"));
     }
+
+    @Test
+    @DisplayName("Should return 201 if technology is created")
+    void shouldReturn201IfTechnologyIsCreated() {
+        CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
+        given()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post(BASE_URL + "technologies")
+                .then()
+                .statusCode(201);
+    }
 }
