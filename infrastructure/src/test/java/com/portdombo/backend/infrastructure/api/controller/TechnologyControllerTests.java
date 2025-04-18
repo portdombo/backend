@@ -116,7 +116,7 @@ public class TechnologyControllerTests {
     @DisplayName("Should return 409 if technology already exists")
     void shouldReturn409IfTechnologyAlreadyExists() {
         CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
-        TechnologyEntity entity =  TechnologyMocksFactory.toTechnologyEntityFactory(request);
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(request);
         technologyRepository.save(entity);
 
         given()
