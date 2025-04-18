@@ -94,4 +94,22 @@ public class TechnologyControllerTests {
                 .statusCode(400)
                 .body("data", equalTo("Description is required!"));
     }
+
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = {"", "   "})
+    @DisplayName("Should return 400 if image is null or empty")
+    void shouldReturn400IfImageIsNull(String imageURL) {
+        CreateTechnologyRequest request = TechnologyFactory.createTechnologyRequestFactory();
+        request.setImageURL(imageURL);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post(BASE_URL + "technologies")
+                .then()
+                .statusCode(400)
+                .body("data", equalTo("ImageURL is required!"));
+    }
 }

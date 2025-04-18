@@ -12,7 +12,7 @@ public class TechnologyFactory {
                 .builder()
                 .name("Name")
                 .description("Description")
-                .image("Image")
+                .imageURL("Image")
                 .highlighted(false)
                 .build();
     }

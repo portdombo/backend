@@ -19,6 +19,9 @@ public class CreateTechnologyRequest {
     @NotNull(message = "Description is required!")
     @NotBlank(message = "Description is required!")
     private String description;
-    private String image;
+
+    @NotNull(message = "ImageURL is required!")
+    @NotBlank(message = "ImageURL is required!")
+    private String imageURL;
     private boolean highlighted;
 }
