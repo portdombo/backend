@@ -17,7 +17,7 @@ public class ExistsTechnologyByNameTests {
 
     @BeforeEach
     void setUp() {
-        gateway =  Mockito.mock(IExistsTechnologyByNameGateway.class);
+        gateway = Mockito.mock(IExistsTechnologyByNameGateway.class);
         existsTechnologyByName = new ExistsTechnologyByName(gateway);
     }
 
