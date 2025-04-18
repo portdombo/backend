@@ -52,4 +52,14 @@ public class TechnologyServiceTests {
         verify(repository, times(1)).existsByName(name);
         assertThat(result).isFalse();
     }
+
+    @Test
+    @DisplayName("Should return true if technology name exists")
+    void shouldReturnTrueIfTechnologyNameExists() {
+        String name = "Name";
+        when(repository.existsByName(name)).thenReturn(true);
+        boolean result = technologyService.existsByName(name);
+        verify(repository, times(1)).existsByName(name);
+        assertThat(result).isTrue();
+    }
 }
