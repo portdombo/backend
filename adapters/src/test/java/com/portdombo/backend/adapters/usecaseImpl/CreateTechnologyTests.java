@@ -5,7 +5,6 @@ import com.portdombo.backend.adapters.mocks.TechnologyFactory;
 import com.portdombo.backend.adapters.usesaceImpl.CreateTechnology;
 import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.domain.exceptions.ConflictException;
-import com.portdombo.backend.usecase.technology.IExistsTechnologyByCode;
 import com.portdombo.backend.usecase.technology.IExistsTechnologyByName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,14 +19,12 @@ import static org.mockito.Mockito.*;
 public class CreateTechnologyTests {
     private CreateTechnology createTechnology;
     private IExistsTechnologyByName existsTechnologyByName;
-    private IExistsTechnologyByCode existsTechnologyByCode;
     private ICreateTechnologyGateway createTechnologyGateway;
 
     @BeforeEach
     void setUp() {
         existsTechnologyByName = Mockito.mock(IExistsTechnologyByName.class);
         createTechnologyGateway = Mockito.mock(ICreateTechnologyGateway.class);
-        existsTechnologyByCode = Mockito.mock(IExistsTechnologyByCode.class);
         createTechnology = new CreateTechnology(existsTechnologyByName, createTechnologyGateway);
     }
 
