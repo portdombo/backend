@@ -10,23 +10,23 @@ on:
       - master
 
 jobs:
-#  test-and-build:
-#    name: Test and Build Java App
-#    if: github.event_name == 'pull_request'
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#
-#      - name: Set up JDK 21
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: temurin
-#          java-version: '21'
-#
-#      - name: Build and run tests
-#        run: mvn clean verify
+  test-and-build:
+    name: Test and Build Java App
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Build and run tests
+        run: mvn clean verify
 
   deploy:
     name: Deploy to Fly.io
