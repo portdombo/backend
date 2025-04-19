@@ -30,8 +30,7 @@ jobs:
 
   deploy:
     name: Deploy to Fly.io
-    if_merged:
-      if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     needs: test-and-build
     runs-on: ubuntu-latest
 
