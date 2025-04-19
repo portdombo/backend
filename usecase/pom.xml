@@ -6,7 +6,7 @@
         <groupId>com.portdombo</groupId>
         <artifactId>backend</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>usecase</artifactId>

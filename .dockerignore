@@ -1,0 +1,185 @@
+# flyctl launch added from .gitignore
+**/HELP.md
+**/target
+!**/.mvn/wrapper/maven-wrapper.jar
+!**/**/src/main/**/target
+!**/**/src/test/**/target
+
+### STS ###
+**/.apt_generated
+**/.classpath
+**/.factorypath
+**/.project
+**/.settings
+**/.springBeans
+**/.sts4-cache
+
+### IntelliJ IDEA ###
+**/.idea
+**/*.iws
+**/*.iml
+**/*.ipr
+
+### NetBeans ###
+nbproject/private
+nbbuild
+dist
+nbdist
+.nb-gradle
+**/build
+!**/**/src/main/**/build
+!**/**/src/test/**/build
+
+### VS Code ###
+**/.vscode
+
+# flyctl launch added from .idea/.gitignore
+# Default ignored files
+.idea/shelf
+.idea/workspace.xml
+# Editor-based HTTP Client requests
+.idea/httpRequests
+# Datasource local storage ignored files
+.idea/dataSources
+.idea/dataSources.local.xml
+
+# flyctl launch added from adapters/.gitignore
+adapters/**/HELP.md
+adapters/**/target
+!adapters/**/.mvn/wrapper/maven-wrapper.jar
+!adapters/**/**/src/main/**/target
+!adapters/**/**/src/test/**/target
+
+### STS ###
+adapters/**/.apt_generated
+adapters/**/.classpath
+adapters/**/.factorypath
+adapters/**/.project
+adapters/**/.settings
+adapters/**/.springBeans
+adapters/**/.sts4-cache
+
+### IntelliJ IDEA ###
+adapters/**/.idea
+adapters/**/*.iws
+adapters/**/*.iml
+adapters/**/*.ipr
+
+### NetBeans ###
+adapters/nbproject/private
+adapters/nbbuild
+adapters/dist
+adapters/nbdist
+adapters/.nb-gradle
+adapters/**/build
+!adapters/**/**/src/main/**/build
+!adapters/**/**/src/test/**/build
+
+### VS Code ###
+adapters/**/.vscode
+
+# flyctl launch added from domain/.gitignore
+domain/**/HELP.md
+domain/**/target
+!domain/**/.mvn/wrapper/maven-wrapper.jar
+!domain/**/**/src/main/**/target
+!domain/**/**/src/test/**/target
+
+### STS ###
+domain/**/.apt_generated
+domain/**/.classpath
+domain/**/.factorypath
+domain/**/.project
+domain/**/.settings
+domain/**/.springBeans
+domain/**/.sts4-cache
+
+### IntelliJ IDEA ###
+domain/**/.idea
+domain/**/*.iws
+domain/**/*.iml
+domain/**/*.ipr
+
+### NetBeans ###
+domain/nbproject/private
+domain/nbbuild
+domain/dist
+domain/nbdist
+domain/.nb-gradle
+domain/**/build
+!domain/**/**/src/main/**/build
+!domain/**/**/src/test/**/build
+
+### VS Code ###
+domain/**/.vscode
+
+# flyctl launch added from infrastructure/.gitignore
+infrastructure/**/HELP.md
+infrastructure/**/target
+!infrastructure/**/.mvn/wrapper/maven-wrapper.jar
+!infrastructure/**/**/src/main/**/target
+!infrastructure/**/**/src/test/**/target
+
+### STS ###
+infrastructure/**/.apt_generated
+infrastructure/**/.classpath
+infrastructure/**/.factorypath
+infrastructure/**/.project
+infrastructure/**/.settings
+infrastructure/**/.springBeans
+infrastructure/**/.sts4-cache
+
+### IntelliJ IDEA ###
+infrastructure/**/.idea
+infrastructure/**/*.iws
+infrastructure/**/*.iml
+infrastructure/**/*.ipr
+
+### NetBeans ###
+infrastructure/nbproject/private
+infrastructure/nbbuild
+infrastructure/dist
+infrastructure/nbdist
+infrastructure/.nb-gradle
+infrastructure/**/build
+!infrastructure/**/**/src/main/**/build
+!infrastructure/**/**/src/test/**/build
+
+### VS Code ###
+infrastructure/**/.vscode
+
+# flyctl launch added from usecase/.gitignore
+usecase/**/HELP.md
+usecase/**/target
+!usecase/**/.mvn/wrapper/maven-wrapper.jar
+!usecase/**/**/src/main/**/target
+!usecase/**/**/src/test/**/target
+
+### STS ###
+usecase/**/.apt_generated
+usecase/**/.classpath
+usecase/**/.factorypath
+usecase/**/.project
+usecase/**/.settings
+usecase/**/.springBeans
+usecase/**/.sts4-cache
+
+### IntelliJ IDEA ###
+usecase/**/.idea
+usecase/**/*.iws
+usecase/**/*.iml
+usecase/**/*.ipr
+
+### NetBeans ###
+usecase/nbproject/private
+usecase/nbbuild
+usecase/dist
+usecase/nbdist
+usecase/.nb-gradle
+usecase/**/build
+!usecase/**/**/src/main/**/build
+!usecase/**/**/src/test/**/build
+
+### VS Code ###
+usecase/**/.vscode
+fly.toml
