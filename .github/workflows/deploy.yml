@@ -31,7 +31,6 @@ jobs:
   deploy:
     name: Deploy to Fly.io
 #    if: github.event_name != 'pull_request'
-    needs: test-and-build
     runs-on: ubuntu-latest
 
     steps:
