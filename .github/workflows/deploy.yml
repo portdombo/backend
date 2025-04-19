@@ -2,9 +2,9 @@
 name: Deploy
 
 on:
-  pull_request_target:
-    types:
-      - closed
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     name: Deploy to Fly.io
-    if: github.event.pull_request.merged == true
+#    if: github.event_name != 'pull_request'
     needs: test-and-build
     runs-on: ubuntu-latest
 
