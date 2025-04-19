@@ -40,7 +40,7 @@ jobs:
 
       - name: Echo GitHub Event Name
         run: |
-        echo "The GitHub event name is: $GITHUB_EVENT_NAME"
+          echo "The GitHub event name is: $GITHUB_EVENT_NAME"
 
       - name: Install Flyctl
         run: |
