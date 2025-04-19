@@ -39,7 +39,7 @@ jobs:
 
       - name: Echo GitHub Event Name
         run: |
-          echo "The GitHub event name is: $GITHUB_EVENT_NAME"
+          echo "The pull request was merged: ${{ github.event.pull_request.merged }}"
 
       - name: Install Flyctl
         run: |
