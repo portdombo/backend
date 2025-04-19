@@ -4,10 +4,10 @@ name: Deploy
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   test-and-build:
@@ -29,6 +29,7 @@ jobs:
 
   deploy:
     name: Deploy to Fly.io
+    if: github.event_name == 'push'  # 🚀 Só roda no push na main, NÃO no pull request
     needs: test-and-build
     runs-on: ubuntu-latest
 
