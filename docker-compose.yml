@@ -1,0 +1,44 @@
+services:
+  portdombo-database:
+    container_name: portdombo-database
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - portdombo-dbdata:/data/db
+      - ./.scripts:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=portdombo
+    networks:
+      - portdombo-network
+
+
+  portdombo-backend:
+    build:
+      context: .
+    container_name: portdombo-backend
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    depends_on:
+      - portdombo-database
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      ## DATABASE CONFIGURATION
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://portdombo-database:5432/portdombo
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_SHOW_SQL=false
+    command: mvn spring-boot:run
+    networks:
+      - portdombo-network
+
+volumes:
+  portdombo-dbdata:
+
+networks:
+  portdombo-network:
+    driver: bridge
