@@ -30,13 +30,17 @@ jobs:
 
   deploy:
     name: Deploy to Fly.io
-    if: github.event_name != 'pull_request'
+#    if: github.event_name != 'pull_request'
     needs: test-and-build
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Echo GitHub Event Name
+        run: |
+        echo "The GitHub event name is: $GITHUB_EVENT_NAME"
 
       - name: Install Flyctl
         run: |
