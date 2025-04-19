@@ -38,6 +38,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Echo GitHub Event Name
+        run: |
+          echo "The GitHub event name is: $GITHUB_EVENT_NAME"
+
       - name: Install Flyctl
         run: |
           curl -L https://fly.io/install.sh | sh
