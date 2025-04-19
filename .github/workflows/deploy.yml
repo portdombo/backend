@@ -29,6 +29,7 @@ jobs:
 
   deploy:
     name: Deploy to Fly.io
+    if: github.event_name == 'push'  # 🚀 Só roda no push na main, NÃO no pull request
     needs: test-and-build
     runs-on: ubuntu-latest
 
