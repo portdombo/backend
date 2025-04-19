@@ -1,0 +1,60 @@
+package com.portdombo.backend.infrastructure.mocks;
+
+import com.portdombo.backend.domain.entity.Technology;
+import com.portdombo.backend.infrastructure.api.dto.CreateTechnologyRequest;
+import com.portdombo.backend.infrastructure.persistence.entity.TechnologyEntity;
+
+import java.util.UUID;
+
+public class TechnologyMocksFactory {
+    public static CreateTechnologyRequest createTechnologyRequestFactory() {
+        return CreateTechnologyRequest
+                .builder()
+                .name("Name")
+                .description("Description")
+                .image("Image")
+                .highlighted(false)
+                .build();
+    }
+
+    public static TechnologyEntity toTechnologyEntityFactory(CreateTechnologyRequest request) {
+        return TechnologyEntity
+                .builder()
+                .name(request.getName())
+                .description(request.getDescription())
+                .image(request.getImage())
+                .highlighted(request.isHighlighted())
+                .build();
+    }
+
+    public static Technology technologyFactory() {
+        return Technology
+                .builder()
+                .name("Name")
+                .description("Description")
+                .image("Image")
+                .highlighted(false)
+                .build();
+    }
+
+    public static TechnologyEntity toTechnologyEntityFactory(Technology technology) {
+        return TechnologyEntity
+                .builder()
+                .name(technology.getName())
+                .description(technology.getDescription())
+                .image(technology.getImage())
+                .highlighted(technology.isHighlighted())
+                .build();
+    }
+
+    public static TechnologyEntity toSaveTechnologyEntityFactory(TechnologyEntity technology) {
+        return TechnologyEntity
+                .builder()
+                .id(UUID.randomUUID())
+                .name(technology.getName())
+                .description(technology.getDescription())
+                .image(technology.getImage())
+                .highlighted(technology.isHighlighted())
+                .build();
+    }
+}
