@@ -12,7 +12,7 @@ on:
 jobs:
   test-and-build:
     name: Test and Build Java App
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
@@ -30,16 +30,12 @@ jobs:
 
   deploy:
     name: Deploy to Fly.io
-#    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Echo GitHub Event Name
-        run: |
-          echo "The pull request was merged: ${{ github.event.pull_request.merged }}"
 
       - name: Install Flyctl
         run: |
