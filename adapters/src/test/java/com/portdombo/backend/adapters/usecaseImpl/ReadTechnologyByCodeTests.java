@@ -1,7 +1,9 @@
 package com.portdombo.backend.adapters.usecaseImpl;
 
 import com.portdombo.backend.adapters.gateway.IReadTechnologyByCodeGateway;
+import com.portdombo.backend.adapters.mocks.TechnologyFactory;
 import com.portdombo.backend.adapters.usesaceImpl.ReadTechnologyByCode;
+import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.domain.exceptions.NotFoundException;
 import com.portdombo.backend.usecase.technology.IReadTechnologyByCode;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,5 +37,16 @@ public class ReadTechnologyByCodeTests {
         assertThat(exception).isInstanceOf(NotFoundException.class);
         assertThat(exception.getMessage()).isEqualTo("Technology not found");
         verify(gateway, times(1)).read(code);
+    }
+
+    @Test
+    @DisplayName("Should return technology if technology code exists")
+    void shouldReturnTechnologyIfTechnologyCodeExists() {
+        Technology  technology = TechnologyFactory.createTechnologyFactory();
+        when(gateway.read(technology.getCode())).thenReturn(Optional.of(technology));
+        Technology result = readTechnologyByCode.read(technology.getCode());
+        assertThat(result).isEqualTo(technology);
+        assert result.getCode() == technology.getCode();
+        verify(gateway, times(1)).read(technology.getCode());
     }
 }
