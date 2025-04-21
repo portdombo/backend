@@ -8,7 +8,6 @@ import com.portdombo.backend.infrastructure.mapper.TechnologyMapper;
 import com.portdombo.backend.infrastructure.persistence.entity.TechnologyEntity;
 import com.portdombo.backend.infrastructure.persistence.repository.TechnologyRepository;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class TechnologyService implements
 
     @Override
     public List<Technology> readAll() {
-        List <TechnologyEntity> entities = repository.findAll();
+        List<TechnologyEntity> entities = repository.findAll();
         return mapper.toTechnologyList(entities);
     }
 }
