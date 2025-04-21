@@ -19,7 +19,7 @@ public class UpdateTechnology implements IUpdateTechnology {
         Technology existingTechnology = readTechnologyByCode.read(technology.getCode());
         boolean nameChanged = !existingTechnology.getName().equals(technology.getName());
         if (nameChanged && existsTechnologyByName.existsByName(technology.getName())) {
-            throw new ConflictException("A technology with this name already exists. Please choose a different name.");
+            throw new ConflictException("You already have a technology with this name! Please change the name before update.");
         }
         gateway.update(technology);
     }
