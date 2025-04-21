@@ -6,16 +6,13 @@ import com.portdombo.backend.domain.exceptions.NotFoundException;
 import com.portdombo.backend.usecase.technology.IReadTechnologyByCode;
 import lombok.AllArgsConstructor;
 
-import java.util.Optional;
-
 @AllArgsConstructor
 public class ReadTechnologyByCode implements IReadTechnologyByCode {
     private final IReadTechnologyByCodeGateway gateway;
 
     @Override
     public Technology read(Long code) {
-        Optional<Technology> technology = gateway.read(code);
-        if (technology.isEmpty()) throw new NotFoundException("Technology not found");
-        return technology.get();
+        return gateway.read(code)
+                .orElseThrow(() -> new NotFoundException("Technology not found"));
     }
 }

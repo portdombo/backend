@@ -42,7 +42,7 @@ public class ReadTechnologyByCodeTests {
     @Test
     @DisplayName("Should return technology if technology code exists")
     void shouldReturnTechnologyIfTechnologyCodeExists() {
-        Technology  technology = TechnologyFactory.createTechnologyFactory();
+        Technology technology = TechnologyFactory.createTechnologyFactory();
         when(gateway.read(technology.getCode())).thenReturn(Optional.of(technology));
         Technology result = readTechnologyByCode.read(technology.getCode());
         assertThat(result).isEqualTo(technology);
