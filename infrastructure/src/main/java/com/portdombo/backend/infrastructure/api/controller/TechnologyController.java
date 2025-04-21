@@ -3,6 +3,7 @@ package com.portdombo.backend.infrastructure.api.controller;
 import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.infrastructure.api.dto.CreateTechnologyRequest;
 import com.portdombo.backend.infrastructure.api.dto.Response;
+import com.portdombo.backend.infrastructure.mapper.TechnologyMapper;
 import com.portdombo.backend.usecase.technology.ICreateTechnology;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Technology", description = "Technology")
 public class TechnologyController {
     private final ICreateTechnology createTechnology;
-    private final ModelMapper mapper;
+    private final TechnologyMapper mapper;
 
     @PostMapping
     @Operation(summary = "Create Technology")
