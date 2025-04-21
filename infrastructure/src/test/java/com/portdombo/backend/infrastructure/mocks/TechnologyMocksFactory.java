@@ -48,7 +48,7 @@ public class TechnologyMocksFactory {
                 .build();
     }
 
-    public static TechnologyEntity toTechnologyEntity(){
+    public static TechnologyEntity toTechnologyEntity() {
         return TechnologyEntity
                 .builder()
                 .id(UUID.randomUUID())
@@ -61,7 +61,7 @@ public class TechnologyMocksFactory {
     }
 
     public static List<TechnologyEntity> toListTechnologyEntity() {
-        return List.of(TechnologyMocksFactory.toTechnologyEntity(),TechnologyMocksFactory.toTechnologyEntity());
+        return List.of(TechnologyMocksFactory.toTechnologyEntity(), TechnologyMocksFactory.toTechnologyEntity());
     }
 
     public static TechnologyEntity toSaveTechnologyEntityFactory(TechnologyEntity technology) {
@@ -75,11 +75,11 @@ public class TechnologyMocksFactory {
                 .build();
     }
 
-    public static List<Technology> toListTechnology(List<TechnologyEntity> entities){
+    public static List<Technology> toListTechnology(List<TechnologyEntity> entities) {
         return entities.stream().map(TechnologyMocksFactory::toTechnology).toList();
     }
 
-    public static Technology toTechnology(TechnologyEntity entity){
+    public static Technology toTechnology(TechnologyEntity entity) {
         return Technology.builder()
                 .code(entity.getCode())
                 .name(entity.getName())

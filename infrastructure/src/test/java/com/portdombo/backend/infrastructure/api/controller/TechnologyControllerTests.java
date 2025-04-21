@@ -17,6 +17,8 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -140,5 +142,25 @@ public class TechnologyControllerTests {
                 .post(BASE_URL + "technologies")
                 .then()
                 .statusCode(201);
+    }
+
+    @Test
+    @DisplayName("Should return 200 on read all technologies success")
+    void shouldReturn200OnReadAllTechnologiesSuccess() {
+        CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(request);
+
+        TechnologyEntity entity1 = TechnologyMocksFactory.toTechnologyEntityFactory(request);
+        entity1.setName("Java");
+
+        technologyRepository.saveAll(List.of(entity1, entity));
+
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(BASE_URL + "technologies")
+                .then()
+                .statusCode(200)
+                .body("data.size()", equalTo(2));
     }
 }
