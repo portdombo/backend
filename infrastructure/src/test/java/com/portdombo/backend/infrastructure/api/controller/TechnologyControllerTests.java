@@ -221,7 +221,7 @@ public class TechnologyControllerTests {
 
     @Test
     @DisplayName("Should return 404 if technology does not exist on update")
-    void shouldReturn404IfTechnologyDoesNotExistOnDelete() {
+    void shouldReturn404IfTechnologyDoesNotExistOnUpdate() {
         Long code = 1L;
         given()
                 .contentType(ContentType.JSON)
@@ -250,5 +250,18 @@ public class TechnologyControllerTests {
                 .patch(BASE_URL + "technologies/" + entity.getCode())
                 .then()
                 .statusCode(204);
+    }
+
+    @Test
+    @DisplayName("Should return 404 if technology does not exist on delete")
+    void shouldReturn404IfTechnologyDoesNotExistOnDelete() {
+        Long code = 1L;
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete(BASE_URL + "technologies/" + code)
+                .then()
+                .statusCode(404)
+                .body("data", equalTo("Technology not found"));
     }
 }
