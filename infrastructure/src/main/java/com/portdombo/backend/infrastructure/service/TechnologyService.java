@@ -3,6 +3,7 @@ package com.portdombo.backend.infrastructure.service;
 import com.portdombo.backend.adapters.gateway.ICreateTechnologyGateway;
 import com.portdombo.backend.adapters.gateway.IExistsTechnologyByNameGateway;
 import com.portdombo.backend.adapters.gateway.IReadAllTechnologiesGateway;
+import com.portdombo.backend.adapters.gateway.IReadTechnologyByCodeGateway;
 import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.infrastructure.mapper.TechnologyMapper;
 import com.portdombo.backend.infrastructure.persistence.entity.TechnologyEntity;
@@ -11,13 +12,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class TechnologyService implements
         ICreateTechnologyGateway,
         IExistsTechnologyByNameGateway,
-        IReadAllTechnologiesGateway {
+        IReadAllTechnologiesGateway,
+        IReadTechnologyByCodeGateway {
 
     private final TechnologyRepository repository;
     private final TechnologyMapper mapper;
@@ -37,5 +40,11 @@ public class TechnologyService implements
     public List<Technology> readAll() {
         List<TechnologyEntity> entities = repository.findAll();
         return mapper.toTechnologyList(entities);
+    }
+
+    @Override
+    public Optional<Technology> read(Long code) {
+        return repository.findByCode(code)
+                .map(entity -> mapper.map(entity, Technology.class));
     }
 }

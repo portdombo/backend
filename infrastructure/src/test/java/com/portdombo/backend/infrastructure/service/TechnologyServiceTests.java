@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
@@ -76,5 +77,28 @@ public class TechnologyServiceTests {
         verify(repository, times(1)).findAll();
         assertThat(result).isEqualTo(technologies);
         assert result.size() == 2;
+    }
+
+    @Test
+    @DisplayName("Should return optional of empty if technology does not exist")
+    void shouldReturnOptionalOfEmptyIfTechnologyDoesNotExist() {
+        Long code = 1L;
+        when(repository.findByCode(code)).thenReturn(Optional.empty());
+        Optional<Technology> result = technologyService.read(code);
+        verify(repository, times(1)).findByCode(code);
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Should return optional of technology if technology exists on read by code")
+    void shouldReturnOptionalOfTechnologyIfTechnologyExistsOnReadByCode() {
+        Technology technology = TechnologyMocksFactory.technologyFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntity(technology);
+        technology.setCode(entity.getCode());
+        when(repository.findByCode(entity.getCode())).thenReturn(Optional.of(entity));
+        when(mapper.map(entity, Technology.class)).thenReturn(technology);
+        Optional<Technology> result = technologyService.read(entity.getCode());
+        verify(repository, times(1)).findByCode(entity.getCode());
+        assertThat(result).isEqualTo(Optional.of(technology));
     }
 }

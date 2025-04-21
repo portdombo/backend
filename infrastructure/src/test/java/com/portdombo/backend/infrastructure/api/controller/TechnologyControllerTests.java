@@ -163,4 +163,34 @@ public class TechnologyControllerTests {
                 .statusCode(200)
                 .body("data.size()", equalTo(2));
     }
+
+    @Test
+    @DisplayName("Should return 404 if technology does not exist on read by code")
+    void shouldReturn404IfTechnologyDoesNotExistOnReadByCode() {
+        Long code = 1L;
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(BASE_URL + "technologies/" + code)
+                .then()
+                .statusCode(404)
+                .body("data", equalTo("Technology not found"));
+
+    }
+
+    @Test
+    @DisplayName("Should return technology on read by code")
+    void shouldReturnTechnologyOnReadByCode() {
+        CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(request);
+        entity = technologyRepository.save(entity);
+
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(BASE_URL + "technologies/" + entity.getCode())
+                .then()
+                .statusCode(200)
+                .body("data.code.toString()", equalTo(entity.getCode().toString()));
+    }
 }

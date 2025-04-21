@@ -60,6 +60,18 @@ public class TechnologyMocksFactory {
                 .build();
     }
 
+    public static TechnologyEntity toTechnologyEntity(Technology technology) {
+        return TechnologyEntity
+                .builder()
+                .id(UUID.randomUUID())
+                .code(1L)
+                .name(technology.getName())
+                .description(technology.getDescription())
+                .image(technology.getImage())
+                .highlighted(technology.isHighlighted())
+                .build();
+    }
+
     public static List<TechnologyEntity> toListTechnologyEntity() {
         return List.of(TechnologyMocksFactory.toTechnologyEntity(), TechnologyMocksFactory.toTechnologyEntity());
     }

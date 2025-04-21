@@ -2,6 +2,7 @@ package com.portdombo.backend.infrastructure.handler;
 
 import com.portdombo.backend.domain.exceptions.BusinessException;
 import com.portdombo.backend.domain.exceptions.ConflictException;
+import com.portdombo.backend.domain.exceptions.NotFoundException;
 import com.portdombo.backend.infrastructure.api.dto.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,12 @@ public class GlobalExceptionHandler {
         String errorMessage = Objects.requireNonNull(ex.getBindingResult().getFieldError()).getDefaultMessage();
         Response response = new Response(HttpStatus.BAD_REQUEST.value(), errorMessage);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Response> handleNotFoundExceptions(Exception ex) {
+        Response response = new Response(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ConflictException.class)
