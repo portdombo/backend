@@ -193,4 +193,29 @@ public class TechnologyControllerTests {
                 .statusCode(200)
                 .body("data.code.toString()", equalTo(entity.getCode().toString()));
     }
+
+    @Test
+    @DisplayName("Should return 409 if technology name had already been taken on update")
+    void shouldReturn409IfTechnologyNameHadAlreadyBeenTakenOnUpdate() {
+        CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(request);
+        entity = technologyRepository.save(entity);
+
+        CreateTechnologyRequest request1 = TechnologyMocksFactory.createTechnologyRequestFactory();
+        request1.setName("New name");
+        TechnologyEntity entity1 = TechnologyMocksFactory.toTechnologyEntityFactory(request1);
+        entity1 = technologyRepository.save(entity1);
+
+        CreateTechnologyRequest request2 = TechnologyMocksFactory.createTechnologyRequestFactory();
+        request2.setName("New name");
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(request2)
+                .when()
+                .patch(BASE_URL + "technologies/" + entity.getCode())
+                .then()
+                .statusCode(409)
+                .body("data", equalTo("You already have a technology with this name! Please change the name before update."));
+    }
 }
