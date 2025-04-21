@@ -88,4 +88,17 @@ public class TechnologyServiceTests {
         verify(repository, times(1)).findByCode(code);
         assertThat(result).isEmpty();
     }
+
+    @Test
+    @DisplayName("Should return optional of technology if technology exists on read by code")
+    void shouldReturnOptionalOfTechnologyIfTechnologyExistsOnReadByCode() {
+        Technology technology = TechnologyMocksFactory.technologyFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntity(technology);
+        technology.setCode(entity.getCode());
+        when(repository.findByCode(entity.getCode())).thenReturn(Optional.of(entity));
+        when(mapper.map(entity, Technology.class)).thenReturn(technology);
+        Optional<Technology> result = technologyService.read(entity.getCode());
+        verify(repository, times(1)).findByCode(entity.getCode());
+        assertThat(result).isEqualTo(Optional.of(technology));
+    }
 }
