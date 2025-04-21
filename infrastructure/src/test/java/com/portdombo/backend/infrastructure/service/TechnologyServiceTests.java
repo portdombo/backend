@@ -114,4 +114,14 @@ public class TechnologyServiceTests {
         technologyService.update(technology);
         verify(repository, times(1)).save(entity);
     }
+
+    @Test
+    @DisplayName("Should delete technology")
+    void shouldDeleteTechnology() {
+        Technology technology = TechnologyMocksFactory.technologyFactory();
+        TechnologyEntity entity =  TechnologyMocksFactory.toTechnologyEntity(technology);
+        when(repository.findByCode(technology.getCode())).thenReturn(Optional.of(entity));
+        technologyService.delete(technology.getCode());
+        verify(repository, times(1)).delete(entity);
+    }
 }
