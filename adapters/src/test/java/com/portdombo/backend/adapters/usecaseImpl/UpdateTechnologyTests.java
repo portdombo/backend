@@ -27,8 +27,8 @@ public class UpdateTechnologyTests {
     void setUp() {
         readTechnologyByCode = mock(IReadTechnologyByCode.class);
         existsTechnologyByName = mock(IExistsTechnologyByName.class);
-        gateway =  mock(IUpdateTechnologyGateway.class);
-        updateTechnology = new UpdateTechnology(readTechnologyByCode,existsTechnologyByName,gateway);
+        gateway = mock(IUpdateTechnologyGateway.class);
+        updateTechnology = new UpdateTechnology(readTechnologyByCode, existsTechnologyByName, gateway);
     }
 
 
