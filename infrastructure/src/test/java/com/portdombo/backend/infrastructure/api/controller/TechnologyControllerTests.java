@@ -232,4 +232,23 @@ public class TechnologyControllerTests {
                 .statusCode(404)
                 .body("data", equalTo("Technology not found"));
     }
+
+    @Test
+    @DisplayName("Shoudl reurn 204 on update success")
+    void shoudlReurn204OnUpdateSuccess() {
+        CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(request);
+        entity = technologyRepository.save(entity);
+
+        CreateTechnologyRequest request1 = TechnologyMocksFactory.createTechnologyRequestFactory();
+        request1.setName("New name");
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(request1)
+                .when()
+                .patch(BASE_URL + "technologies/" + entity.getCode())
+                .then()
+                .statusCode(204);
+    }
 }
