@@ -167,11 +167,11 @@ public class TechnologyControllerTests {
     @Test
     @DisplayName("Should return 404 if technology does not exist on read by code")
     void shouldReturn404IfTechnologyDoesNotExistOnReadByCode() {
-        Long code =  1L;
+        Long code = 1L;
         given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get(BASE_URL + "technologies/"+code)
+                .get(BASE_URL + "technologies/" + code)
                 .then()
                 .statusCode(404)
                 .body("data", equalTo("Technology not found"));
