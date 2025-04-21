@@ -50,7 +50,6 @@ public class UpdateTechnologyTests {
         Technology technology = TechnologyFactory.createTechnologyFactory();
         technology.setName("New name");
         Technology savedTechnology = TechnologyFactory.createTechnologyFactory();
-
         when(readTechnologyByCode.read(technology.getCode())).thenReturn(savedTechnology);
         when(existsTechnologyByName.existsByName(technology.getName())).thenReturn(true);
         Throwable exception = catchThrowable(() -> updateTechnology.update(technology));
@@ -59,5 +58,19 @@ public class UpdateTechnologyTests {
         verify(readTechnologyByCode, times(1)).read(technology.getCode());
         verify(existsTechnologyByName, times(1)).existsByName(technology.getName());
         verify(gateway, times(0)).update(technology);
+    }
+
+    @Test
+    @DisplayName("Should update technology")
+    void shouldUpdateTechnology() {
+        Technology technology = TechnologyFactory.createTechnologyFactory();
+        technology.setName("New name");
+        Technology savedTechnology = TechnologyFactory.createTechnologyFactory();
+        when(readTechnologyByCode.read(technology.getCode())).thenReturn(savedTechnology);
+        when(existsTechnologyByName.existsByName(technology.getName())).thenReturn(false);
+        updateTechnology.update(technology);
+        verify(readTechnologyByCode, times(1)).read(technology.getCode());
+        verify(existsTechnologyByName, times(1)).existsByName(technology.getName());
+        verify(gateway, times(1)).update(technology);
     }
 }
