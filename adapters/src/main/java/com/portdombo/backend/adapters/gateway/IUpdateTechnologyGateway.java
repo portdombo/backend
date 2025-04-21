@@ -1,4 +1,4 @@
-package com.portdombo.backend.adapters;
+package com.portdombo.backend.adapters.gateway;
 
 import com.portdombo.backend.domain.entity.Technology;
 
