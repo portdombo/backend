@@ -109,6 +109,7 @@ public class TechnologyServiceTests {
         TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntity(technology);
         TechnologyEntity savedEntity = TechnologyMocksFactory.toSaveTechnologyEntityFactory(entity);
         when(mapper.map(technology, TechnologyEntity.class)).thenReturn(entity);
+        when(repository.findByCode(technology.getCode())).thenReturn(Optional.of(entity));
         when(repository.save(entity)).thenReturn(savedEntity);
         technologyService.update(technology);
         verify(repository, times(1)).save(entity);
