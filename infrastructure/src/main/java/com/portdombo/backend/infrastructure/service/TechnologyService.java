@@ -1,9 +1,6 @@
 package com.portdombo.backend.infrastructure.service;
 
-import com.portdombo.backend.adapters.gateway.ICreateTechnologyGateway;
-import com.portdombo.backend.adapters.gateway.IExistsTechnologyByNameGateway;
-import com.portdombo.backend.adapters.gateway.IReadAllTechnologiesGateway;
-import com.portdombo.backend.adapters.gateway.IReadTechnologyByCodeGateway;
+import com.portdombo.backend.adapters.gateway.*;
 import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.infrastructure.mapper.TechnologyMapper;
 import com.portdombo.backend.infrastructure.persistence.entity.TechnologyEntity;
@@ -13,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -20,7 +18,8 @@ public class TechnologyService implements
         ICreateTechnologyGateway,
         IExistsTechnologyByNameGateway,
         IReadAllTechnologiesGateway,
-        IReadTechnologyByCodeGateway {
+        IReadTechnologyByCodeGateway,
+        IUpdateTechnologyGateway {
 
     private final TechnologyRepository repository;
     private final TechnologyMapper mapper;
@@ -46,5 +45,13 @@ public class TechnologyService implements
     public Optional<Technology> read(Long code) {
         return repository.findByCode(code)
                 .map(entity -> mapper.map(entity, Technology.class));
+    }
+
+    @Override
+    public void update(Technology technology) {
+        TechnologyEntity technologyEntity = mapper.map(technology, TechnologyEntity.class);
+        UUID id = repository.findByCode(technology.getCode()).get().getId();
+        technologyEntity.setId(id);
+        repository.save(technologyEntity);
     }
 }

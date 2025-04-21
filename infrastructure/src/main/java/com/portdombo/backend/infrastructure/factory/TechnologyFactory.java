@@ -1,9 +1,6 @@
 package com.portdombo.backend.infrastructure.factory;
 
-import com.portdombo.backend.adapters.usesaceImpl.CreateTechnology;
-import com.portdombo.backend.adapters.usesaceImpl.ExistsTechnologyByName;
-import com.portdombo.backend.adapters.usesaceImpl.ReadAllTechnologies;
-import com.portdombo.backend.adapters.usesaceImpl.ReadTechnologyByCode;
+import com.portdombo.backend.adapters.usesaceImpl.*;
 import com.portdombo.backend.infrastructure.service.TechnologyService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -32,5 +29,10 @@ public class TechnologyFactory {
     @Bean
     public ReadTechnologyByCode readTechnologyByCode() {
         return new ReadTechnologyByCode(technologyService);
+    }
+
+    @Bean
+    public UpdateTechnology updateTechnology() {
+        return new UpdateTechnology(readTechnologyByCode(), existsTechnologyByName(), technologyService);
     }
 }

@@ -101,4 +101,17 @@ public class TechnologyServiceTests {
         verify(repository, times(1)).findByCode(entity.getCode());
         assertThat(result).isEqualTo(Optional.of(technology));
     }
+
+    @Test
+    @DisplayName("Should update technology")
+    void shouldUpdateTechnology() {
+        Technology technology = TechnologyMocksFactory.technologyFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntity(technology);
+        TechnologyEntity savedEntity = TechnologyMocksFactory.toSaveTechnologyEntityFactory(entity);
+        when(mapper.map(technology, TechnologyEntity.class)).thenReturn(entity);
+        when(repository.findByCode(technology.getCode())).thenReturn(Optional.of(entity));
+        when(repository.save(entity)).thenReturn(savedEntity);
+        technologyService.update(technology);
+        verify(repository, times(1)).save(entity);
+    }
 }

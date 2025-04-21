@@ -193,4 +193,62 @@ public class TechnologyControllerTests {
                 .statusCode(200)
                 .body("data.code.toString()", equalTo(entity.getCode().toString()));
     }
+
+    @Test
+    @DisplayName("Should return 409 if technology name had already been taken on update")
+    void shouldReturn409IfTechnologyNameHadAlreadyBeenTakenOnUpdate() {
+        CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(request);
+        entity = technologyRepository.save(entity);
+
+        CreateTechnologyRequest request1 = TechnologyMocksFactory.createTechnologyRequestFactory();
+        request1.setName("New name");
+        TechnologyEntity entity1 = TechnologyMocksFactory.toTechnologyEntityFactory(request1);
+        entity1 = technologyRepository.save(entity1);
+
+        CreateTechnologyRequest request2 = TechnologyMocksFactory.createTechnologyRequestFactory();
+        request2.setName("New name");
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(request2)
+                .when()
+                .patch(BASE_URL + "technologies/" + entity.getCode())
+                .then()
+                .statusCode(409)
+                .body("data", equalTo("You already have a technology with this name! Please change the name before update."));
+    }
+
+    @Test
+    @DisplayName("Should return 404 if technology does not exist on update")
+    void shouldReturn404IfTechnologyDoesNotExistOnDelete() {
+        Long code = 1L;
+        given()
+                .contentType(ContentType.JSON)
+                .body(TechnologyMocksFactory.createTechnologyRequestFactory())
+                .when()
+                .patch(BASE_URL + "technologies/" + code)
+                .then()
+                .statusCode(404)
+                .body("data", equalTo("Technology not found"));
+    }
+
+    @Test
+    @DisplayName("Shoudl reurn 204 on update success")
+    void shoudlReurn204OnUpdateSuccess() {
+        CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(request);
+        entity = technologyRepository.save(entity);
+
+        CreateTechnologyRequest request1 = TechnologyMocksFactory.createTechnologyRequestFactory();
+        request1.setName("New name");
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(request1)
+                .when()
+                .patch(BASE_URL + "technologies/" + entity.getCode())
+                .then()
+                .statusCode(204);
+    }
 }
