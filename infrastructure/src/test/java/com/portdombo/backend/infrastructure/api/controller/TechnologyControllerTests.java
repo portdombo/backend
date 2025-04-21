@@ -218,4 +218,18 @@ public class TechnologyControllerTests {
                 .statusCode(409)
                 .body("data", equalTo("You already have a technology with this name! Please change the name before update."));
     }
+
+    @Test
+    @DisplayName("Should return 404 if technology does not exist on update")
+    void shouldReturn404IfTechnologyDoesNotExistOnDelete() {
+        Long code = 1L;
+        given()
+                .contentType(ContentType.JSON)
+                .body(TechnologyMocksFactory.createTechnologyRequestFactory())
+                .when()
+                .patch(BASE_URL + "technologies/" + code)
+                .then()
+                .statusCode(404)
+                .body("data", equalTo("Technology not found"));
+    }
 }
