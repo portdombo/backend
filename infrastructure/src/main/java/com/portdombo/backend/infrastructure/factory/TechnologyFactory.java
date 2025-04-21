@@ -35,4 +35,9 @@ public class TechnologyFactory {
     public UpdateTechnology updateTechnology() {
         return new UpdateTechnology(readTechnologyByCode(), existsTechnologyByName(), technologyService);
     }
+
+    @Bean
+    public DeleteTechnology deleteTechnology() {
+        return new DeleteTechnology(readTechnologyByCode(), technologyService);
+    }
 }
