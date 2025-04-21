@@ -19,7 +19,8 @@ public class TechnologyService implements
         IExistsTechnologyByNameGateway,
         IReadAllTechnologiesGateway,
         IReadTechnologyByCodeGateway,
-        IUpdateTechnologyGateway {
+        IUpdateTechnologyGateway,
+        IDeleteTechnologyGateway{
 
     private final TechnologyRepository repository;
     private final TechnologyMapper mapper;
@@ -53,5 +54,11 @@ public class TechnologyService implements
         UUID id = repository.findByCode(technology.getCode()).get().getId();
         technologyEntity.setId(id);
         repository.save(technologyEntity);
+    }
+
+    @Override
+    public void delete(Long code) {
+        TechnologyEntity entity =  repository.findByCode(code).get();
+        repository.delete(entity);
     }
 }
