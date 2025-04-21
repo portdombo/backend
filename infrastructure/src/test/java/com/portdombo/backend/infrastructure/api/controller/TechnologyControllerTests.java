@@ -183,7 +183,7 @@ public class TechnologyControllerTests {
     void shouldReturnTechnologyOnReadByCode() {
         CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
         TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(request);
-        entity =  technologyRepository.save(entity);
+        entity = technologyRepository.save(entity);
 
         given()
                 .contentType(ContentType.JSON)
