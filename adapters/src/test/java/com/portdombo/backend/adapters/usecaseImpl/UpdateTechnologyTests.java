@@ -1,6 +1,6 @@
 package com.portdombo.backend.adapters.usecaseImpl;
 
-import com.portdombo.backend.adapters.IUpdateTechnologyGateway;
+import com.portdombo.backend.adapters.gateway.IUpdateTechnologyGateway;
 import com.portdombo.backend.adapters.mocks.TechnologyFactory;
 import com.portdombo.backend.adapters.usesaceImpl.UpdateTechnology;
 import com.portdombo.backend.domain.entity.Technology;

@@ -3,10 +3,12 @@ package com.portdombo.backend.infrastructure.api.controller;
 import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.infrastructure.api.dto.CreateTechnologyRequest;
 import com.portdombo.backend.infrastructure.api.dto.Response;
+import com.portdombo.backend.infrastructure.api.dto.UpdateTechnologyRequest;
 import com.portdombo.backend.infrastructure.mapper.TechnologyMapper;
 import com.portdombo.backend.usecase.technology.ICreateTechnology;
 import com.portdombo.backend.usecase.technology.IReadAllTechnologies;
 import com.portdombo.backend.usecase.technology.IReadTechnologyByCode;
+import com.portdombo.backend.usecase.technology.IUpdateTechnology;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,6 +29,7 @@ public class TechnologyController {
     private final ICreateTechnology createTechnology;
     private final IReadAllTechnologies readAllTechnologies;
     private final IReadTechnologyByCode readTechnologyByCode;
+    private final IUpdateTechnology updateTechnology;
     private final TechnologyMapper mapper;
 
     @PostMapping
@@ -67,5 +70,21 @@ public class TechnologyController {
         Technology result = readTechnologyByCode.read(code);
         Response response = Response.builder().statusCode(HttpStatus.OK.value()).data(result).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{code}")
+    @Operation(summary = "Update Technology by code")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "NOT_CONTENT"),
+            @ApiResponse(responseCode = "404", description = "NOT_FOUND"),
+            @ApiResponse(responseCode = "409", description = "CONFLICT"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL_SERVER_ERROR")
+    })
+    public ResponseEntity<Response> update(@Valid @RequestBody UpdateTechnologyRequest request, @PathVariable("code") Long code) {
+        Technology technology = mapper.map(request, Technology.class);
+        technology.setCode(code);
+        updateTechnology.update(technology);
+        Response response = Response.builder().statusCode(HttpStatus.NO_CONTENT.value()).build();
+        return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
     }
 }
