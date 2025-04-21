@@ -264,4 +264,19 @@ public class TechnologyControllerTests {
                 .statusCode(404)
                 .body("data", equalTo("Technology not found"));
     }
+
+    @Test
+    @DisplayName("Shoudl reurn 204 on delete success")
+    void shoudlReurn204OnDeleteSuccess() {
+        CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(request);
+        entity = technologyRepository.save(entity);
+
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete(BASE_URL + "technologies/" + entity.getCode())
+                .then()
+                .statusCode(204);
+    }
 }
