@@ -177,4 +177,20 @@ public class TechnologyControllerTests {
                 .body("data", equalTo("Technology not found"));
 
     }
+
+    @Test
+    @DisplayName("Should return technology on read by code")
+    void shouldReturnTechnologyOnReadByCode() {
+        CreateTechnologyRequest request = TechnologyMocksFactory.createTechnologyRequestFactory();
+        TechnologyEntity entity = TechnologyMocksFactory.toTechnologyEntityFactory(request);
+        entity =  technologyRepository.save(entity);
+
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(BASE_URL + "technologies/" + entity.getCode())
+                .then()
+                .statusCode(200)
+                .body("data.code.toString()", equalTo(entity.getCode().toString()));
+    }
 }
