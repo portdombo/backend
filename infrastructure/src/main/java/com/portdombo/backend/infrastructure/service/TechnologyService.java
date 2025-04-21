@@ -44,8 +44,7 @@ public class TechnologyService implements
 
     @Override
     public Optional<Technology> read(Long code) {
-        Optional<TechnologyEntity> entity = repository.findByCode(code);
-        return entity.isEmpty() ? Optional.empty() :
-                Optional.of(mapper.map(entity.get(), Technology.class));
+        return repository.findByCode(code)
+                .map(entity -> mapper.map(entity, Technology.class));
     }
 }
