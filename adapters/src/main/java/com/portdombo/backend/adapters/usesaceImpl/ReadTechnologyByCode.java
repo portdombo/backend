@@ -16,6 +16,6 @@ public class ReadTechnologyByCode implements IReadTechnologyByCode {
     public Technology read(Long code) {
         Optional<Technology> technology = gateway.read(code);
         if (technology.isEmpty()) throw new NotFoundException("Technology not found");
-        return null;
+        return technology.get();
     }
 }
