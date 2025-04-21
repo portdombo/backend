@@ -1,5 +1,6 @@
 package com.portdombo.backend.infrastructure.service;
 
+import com.portdombo.backend.adapters.IUpdateTechnologyGateway;
 import com.portdombo.backend.adapters.gateway.ICreateTechnologyGateway;
 import com.portdombo.backend.adapters.gateway.IExistsTechnologyByNameGateway;
 import com.portdombo.backend.adapters.gateway.IReadAllTechnologiesGateway;
@@ -20,7 +21,8 @@ public class TechnologyService implements
         ICreateTechnologyGateway,
         IExistsTechnologyByNameGateway,
         IReadAllTechnologiesGateway,
-        IReadTechnologyByCodeGateway {
+        IReadTechnologyByCodeGateway,
+        IUpdateTechnologyGateway {
 
     private final TechnologyRepository repository;
     private final TechnologyMapper mapper;
@@ -46,5 +48,11 @@ public class TechnologyService implements
     public Optional<Technology> read(Long code) {
         return repository.findByCode(code)
                 .map(entity -> mapper.map(entity, Technology.class));
+    }
+
+    @Override
+    public void update(Technology technology) {
+        TechnologyEntity technologyEntity = mapper.map(technology, TechnologyEntity.class);
+        repository.save(technologyEntity);
     }
 }
