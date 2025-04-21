@@ -1,7 +1,9 @@
 package com.portdombo.backend.adapters.usecaseImpl;
 
 import com.portdombo.backend.adapters.gateway.IDeleteTechnologyGateway;
+import com.portdombo.backend.adapters.mocks.TechnologyFactory;
 import com.portdombo.backend.adapters.usesaceImpl.DeleteTechnology;
+import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.domain.exceptions.NotFoundException;
 import com.portdombo.backend.usecase.technology.IDeleteTechnology;
 import com.portdombo.backend.usecase.technology.IReadTechnologyByCode;
@@ -35,5 +37,15 @@ public class DeleteTechnologyTests {
         assertThat(exception.getMessage()).isEqualTo("Technology not found");
         verify(readTechnologyByCode, times(1)).read(code);
         verify(gateway, times(0)).delete(code);
+    }
+
+    @Test
+    @DisplayName("Should delete technology")
+    void shouldDeleteTechnology() {
+        Technology technology = TechnologyFactory.createTechnologyFactory();
+        when(readTechnologyByCode.read(technology.getCode())).thenReturn(technology);
+        deleteTechnology.delete(technology.getCode());
+        verify(readTechnologyByCode, times(1)).read(technology.getCode());
+        verify(gateway, times(1)).delete(technology.getCode());
     }
 }
