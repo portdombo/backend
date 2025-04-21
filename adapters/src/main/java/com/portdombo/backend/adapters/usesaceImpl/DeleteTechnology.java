@@ -1,7 +1,6 @@
 package com.portdombo.backend.adapters.usesaceImpl;
 
 import com.portdombo.backend.adapters.gateway.IDeleteTechnologyGateway;
-import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.usecase.technology.IDeleteTechnology;
 import com.portdombo.backend.usecase.technology.IReadTechnologyByCode;
 import lombok.AllArgsConstructor;
@@ -13,6 +12,7 @@ public class DeleteTechnology implements IDeleteTechnology {
 
     @Override
     public void delete(Long code) {
-        Technology technology = readTechnologyByCode.read(code);
+        readTechnologyByCode.read(code);
+        gateway.delete(code);
     }
 }
