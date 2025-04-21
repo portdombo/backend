@@ -7,14 +7,14 @@ app = 'portdombo-api'
 primary_region = 'gig'
 
 [http_service]
-  internal_port = 8080
-  force_https = true
-  auto_stop_machines = 'stop'
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ['app']
+internal_port = 8080
+force_https = true
+auto_stop_machines = 'stop'
+auto_start_machines = true
+min_machines_running = 0
+processes = ['app']
 
 [[vm]]
-  memory = '16gb'
-  cpu_kind = 'shared'
-  cpus = 8
+memory = '16gb'
+cpu_kind = 'shared'
+cpus = 8

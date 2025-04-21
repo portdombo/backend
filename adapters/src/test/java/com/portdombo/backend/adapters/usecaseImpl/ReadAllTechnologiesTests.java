@@ -29,7 +29,7 @@ public class ReadAllTechnologiesTests {
     @DisplayName("Should read all technologies")
     void shouldReadAllTechnologies() {
         List<Technology> list = List.of(TechnologyFactory.createTechnologyFactory()
-                ,TechnologyFactory.createTechnologyFactory());
+                , TechnologyFactory.createTechnologyFactory());
 
         when(gateway.readAll()).thenReturn(list);
         List<Technology> result = readAllTechnologies.readAll();
