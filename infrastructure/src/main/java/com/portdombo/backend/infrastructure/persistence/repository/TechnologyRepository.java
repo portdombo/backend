@@ -8,5 +8,6 @@ import java.util.UUID;
 
 public interface TechnologyRepository extends JpaRepository<TechnologyEntity, UUID> {
     boolean existsByName(String name);
+
     Optional<TechnologyEntity> findByCode(Long code);
 }

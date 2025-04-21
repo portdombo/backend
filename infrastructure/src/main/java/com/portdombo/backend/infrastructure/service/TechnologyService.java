@@ -8,7 +8,6 @@ import com.portdombo.backend.domain.entity.Technology;
 import com.portdombo.backend.infrastructure.mapper.TechnologyMapper;
 import com.portdombo.backend.infrastructure.persistence.entity.TechnologyEntity;
 import com.portdombo.backend.infrastructure.persistence.repository.TechnologyRepository;
-import com.portdombo.backend.usecase.technology.IReadTechnologyByCode;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +44,8 @@ public class TechnologyService implements
 
     @Override
     public Optional<Technology> read(Long code) {
-        repository.findByCode(code);
-        return Optional.empty();
+        Optional<TechnologyEntity> entity = repository.findByCode(code);
+        return entity.isEmpty() ? Optional.empty() :
+                Optional.of(mapper.map(entity.get(), Technology.class));
     }
 }
