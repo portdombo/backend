@@ -6,7 +6,6 @@ import com.portdombo.backend.domain.exceptions.NotFoundException;
 import com.portdombo.backend.usecase.technology.IReadTechnologyByCode;
 import lombok.AllArgsConstructor;
 
-import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
