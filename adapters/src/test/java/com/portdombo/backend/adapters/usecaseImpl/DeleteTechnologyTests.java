@@ -28,7 +28,7 @@ public class DeleteTechnologyTests {
     @Test
     @DisplayName("Should throw NotFoundException if technology does not exist")
     void shouldThrowNotFoundExceptionIfTechnologyDoesNotExist() {
-        Long code =  1L;
+        Long code = 1L;
         when(readTechnologyByCode.read(code)).thenThrow(new NotFoundException("Technology not found"));
         Throwable exception = catchThrowable(() -> deleteTechnology.delete(code));
         assertThat(exception).isInstanceOf(NotFoundException.class);
