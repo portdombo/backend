@@ -22,5 +22,6 @@ public class UpdateTechnology implements IUpdateTechnology {
             if (exists) throw new ConflictException("You already have a technology with this name! " +
                     "Please change the name before update.");
         }
+        gateway.update(technology);
     }
 }
