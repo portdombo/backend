@@ -20,7 +20,7 @@ public class TechnologyService implements
         IReadAllTechnologiesGateway,
         IReadTechnologyByCodeGateway,
         IUpdateTechnologyGateway,
-        IDeleteTechnologyGateway{
+        IDeleteTechnologyGateway {
 
     private final TechnologyRepository repository;
     private final TechnologyMapper mapper;
@@ -58,7 +58,7 @@ public class TechnologyService implements
 
     @Override
     public void delete(Long code) {
-        TechnologyEntity entity =  repository.findByCode(code).get();
+        TechnologyEntity entity = repository.findByCode(code).get();
         repository.delete(entity);
     }
 }
